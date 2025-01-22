@@ -1,21 +1,30 @@
 public class Task {
 
-    private String description;
-    private Boolean isCompleted;
+    private final String description;
+    private Boolean isMark;
 
     public Task(String description) {
         this.description = description;
+        this.isMark = false;
     }
 
-    public String TaskIcon() {
-        if (this.isCompleted) {
+    public String getIcon() {
+        if (this.isMark) {
             return "[X]";
         } else {
             return "[ ]";
         }
     }
 
-    public void complete(){
-        this.isCompleted = true;
+    public void mark(){
+        this.isMark = true;
+    }
+
+    public void unmark(){
+        this.isMark = false;
+    }
+
+    public String getDescription() {
+        return this.description;
     }
 }
