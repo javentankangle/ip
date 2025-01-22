@@ -17,23 +17,69 @@ public class Javen {
 
         while (true) {
             String input = scanner.nextLine();
-
-            if (input.equals("bye")) {
-                printgoodbye();
-                break;
-            } else if (input.equals("list")) {
-                listitem(TaskList);
-            } else if (input.split(" ")[0].equals("mark")) {
-                mark(input.split(" ")[1], TaskList);
-            } else if (input.split(" ")[0].equals("unmark")) {
-                unmark(input.split(" " )[1], TaskList);
-            } else {
-                echo(input, TaskList);
-            }
+            readinput(input, TaskList);
         }
 
     }
 
+    public static void readinput(String input, ArrayList<Task> TaskList) {
+        String[] parts = input.split(" ", 2);
+        String command = input.split(" ", 2)[0];
+
+        if (parts.length > 1) {
+            String details = input.split(" ", 2)[1];
+
+            switch (command) {
+                case "todo":
+                    ToDo todo = new ToDo(details);
+                    echo(todo, TaskList);
+                    TaskList.add(todo);
+                    break;
+
+                case "deadline":
+                    String deadline_description = details.split("/")[0];
+                    String deadline_end = details.split("/")[1];
+                    Deadline deadline = new Deadline(deadline_description, deadline_end);
+                    echo(deadline, TaskList);
+                    TaskList.add(deadline);
+                    break;
+
+                case "event":
+                    String event_description = details.split("/")[0];
+                    String event_start = details.split("/")[1];
+                    String event_end = details.split("/")[2];
+                    Event event = new Event(event_description, event_start, event_end);
+                    echo(event, TaskList);
+                    TaskList.add(event);
+                    break;
+
+                case "mark":
+                    mark(details, TaskList);
+                    break;
+
+                case "unmark":
+                    unmark(details, TaskList);
+                    break;
+            }
+
+        } else {
+            switch (command) {
+                case "bye":
+                    printgoodbye();
+                    break;
+
+                case "list":
+                    listitem(TaskList);
+                    break;
+            }
+        }
+
+
+
+
+
+
+    }
     public static void printgreeting() {
 
         System.out.println("""
@@ -50,17 +96,19 @@ public class Javen {
                 Bye! See you soon :)
                 ________________________________________
                 """);
+        System.exit(0);
     }
 
 
-    public static void echo(String word, ArrayList<Task> list) {
+    public static void echo(Task task, ArrayList<Task> TaskList) {
         System.out.println(
                 "________________________________________\n added:" +
-                word +
-                "\n________________________________________\n"
+                task +
+                "\n________________________________________\n" +
+                "You have " +
+                String.valueOf(TaskList.size() + 1) +
+                " in the list!"
         );
-        Task task = new Task(word);
-        list.add(task);
 
     }
 
@@ -71,9 +119,7 @@ public class Javen {
         for (int i = 0; i < list.size(); i++) {
             System.out.println(String.valueOf(i + 1) +
                     "." +
-                    list.get(i).getIcon() +
-                    " " +
-                    list.get(i).getDescription());
+                    list.get(i).toString());
         }
 
         System.out.println("________________________________________\n");
@@ -89,10 +135,7 @@ public class Javen {
             Task is completed!
             """);
 
-        System.out.println(task.getIcon() +
-                " " +
-                task.getDescription());
-
+        System.out.println(task.toString());
         System.out.println("________________________________________\n");
     }
 
@@ -106,10 +149,7 @@ public class Javen {
             Task is not completed!
             """);
 
-        System.out.println(task.getIcon() +
-                " " +
-                task.getDescription());
-
+        System.out.println(task.toString());
         System.out.println("________________________________________\n");
     }
 
