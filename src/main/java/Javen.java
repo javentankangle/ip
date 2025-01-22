@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Javen {
     public static void main(String[] args) {
 //        String logo = " ____        _        \n"
@@ -8,7 +10,19 @@ public class Javen {
 //        System.out.println("Hello from\n" + logo)
 
         printgreeting();
-        printgoodbye();
+
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            String input = scanner.nextLine();
+
+            if (input.equals("bye")) {
+                printgoodbye();
+                break;
+            } else {
+                echo(input);
+            }
+        }
 
     }
 
@@ -17,7 +31,7 @@ public class Javen {
         System.out.println("""
                 ________________________________________
                 Hello! I'm Javen
-                What can I do for you?
+                What do you need help with?
                 ________________________________________
                 """);
     }
@@ -25,8 +39,17 @@ public class Javen {
     public static void printgoodbye() {
         System.out.println("""
                 ________________________________________
-                Bye. Hope to see you again soon!
+                Bye! See you soon :)
                 ________________________________________
                 """);
+    }
+
+
+    public static void echo(String word) {
+        System.out.println(
+                "________________________________________\n" +
+                word +
+                "\n________________________________________\n"
+        );
     }
 }
