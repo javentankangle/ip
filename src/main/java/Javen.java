@@ -12,7 +12,7 @@ public class Javen {
 //        System.out.println("Hello from\n" + logo)
 
         printgreeting();
-        ArrayList<String> list = new ArrayList<>();
+        ArrayList<Task> TaskList = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
@@ -22,9 +22,13 @@ public class Javen {
                 printgoodbye();
                 break;
             } else if (input.equals("list")) {
-                listitem(list);
+                listitem(TaskList);
+            } else if (input.split(" ")[0].equals("mark")) {
+                mark(input.split(" ")[1], TaskList);
+            } else if (input.split(" ")[0].equals("unmark")) {
+                unmark(input.split(" " )[1], TaskList);
             } else {
-                echo(input, list);
+                echo(input, TaskList);
             }
         }
 
@@ -49,23 +53,64 @@ public class Javen {
     }
 
 
-    public static void echo(String word, ArrayList<String> list) {
+    public static void echo(String word, ArrayList<Task> list) {
         System.out.println(
                 "________________________________________\n added:" +
                 word +
                 "\n________________________________________\n"
         );
-        list.add(word);
+        Task task = new Task(word);
+        list.add(task);
 
     }
 
-    public static void listitem(ArrayList<String> list) {
+    public static void listitem(ArrayList<Task> list) {
         System.out.println("________________________________________\n");
+        System.out.println("These are your tasks\n");
 
         for (int i = 0; i < list.size(); i++) {
-            System.out.println(String.valueOf(i) + "." + list.get(i));
+            System.out.println(String.valueOf(i + 1) +
+                    "." +
+                    list.get(i).getIcon() +
+                    " " +
+                    list.get(i).getDescription());
         }
 
         System.out.println("________________________________________\n");
     }
+
+    public static void mark(String item, ArrayList<Task> TaskList) {
+        int number = Integer.parseInt(item);
+        Task task = TaskList.get(number-1);
+        task.mark();
+
+        System.out.println("""
+            ________________________________________\n
+            Task is completed!
+            """);
+
+        System.out.println(task.getIcon() +
+                " " +
+                task.getDescription());
+
+        System.out.println("________________________________________\n");
+    }
+
+    public static void unmark(String item, ArrayList<Task> TaskList) {
+        int number = Integer.parseInt(item);
+        Task task = TaskList.get(number-1);
+        task.unmark();
+
+        System.out.println("""
+            ________________________________________\n
+            Task is not completed!
+            """);
+
+        System.out.println(task.getIcon() +
+                " " +
+                task.getDescription());
+
+        System.out.println("________________________________________\n");
+    }
+
 }
