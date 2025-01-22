@@ -1,3 +1,5 @@
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Javen {
@@ -10,7 +12,7 @@ public class Javen {
 //        System.out.println("Hello from\n" + logo)
 
         printgreeting();
-
+        ArrayList<String> list = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
@@ -19,8 +21,10 @@ public class Javen {
             if (input.equals("bye")) {
                 printgoodbye();
                 break;
+            } else if (input.equals("list")) {
+                listitem(list);
             } else {
-                echo(input);
+                echo(input, list);
             }
         }
 
@@ -45,11 +49,23 @@ public class Javen {
     }
 
 
-    public static void echo(String word) {
+    public static void echo(String word, ArrayList<String> list) {
         System.out.println(
-                "________________________________________\n" +
+                "________________________________________\n added:" +
                 word +
                 "\n________________________________________\n"
         );
+        list.add(word);
+
+    }
+
+    public static void listitem(ArrayList<String> list) {
+        System.out.println("________________________________________\n");
+
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println(String.valueOf(i) + "." + list.get(i));
+        }
+
+        System.out.println("________________________________________\n");
     }
 }
