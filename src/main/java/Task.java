@@ -8,14 +8,6 @@ public class Task {
         this.isMark = false;
     }
 
-    public String getIcon() {
-        if (this.isMark) {
-            return "[X]";
-        } else {
-            return "[ ]";
-        }
-    }
-
     public void mark(){
         this.isMark = true;
     }
@@ -24,7 +16,11 @@ public class Task {
         this.isMark = false;
     }
 
-    public String getDescription() {
-        return this.description;
+    public String toString() {
+        if (this.isMark) {
+            return "[X] " + this.description;
+        } else {
+            return "[ ] " + this.description;
+        }
     }
 }
