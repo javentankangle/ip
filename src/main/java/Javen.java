@@ -26,60 +26,120 @@ public class Javen {
         String[] parts = input.split(" ", 2);
         String command = input.split(" ", 2)[0];
 
+        String details = "";
         if (parts.length > 1) {
-            String details = input.split(" ", 2)[1];
-
-            switch (command) {
-                case "todo":
-                    ToDo todo = new ToDo(details);
-                    echo(todo, TaskList);
-                    TaskList.add(todo);
-                    break;
-
-                case "deadline":
-                    String deadline_description = details.split("/")[0];
-                    String deadline_end = details.split("/")[1];
-                    Deadline deadline = new Deadline(deadline_description, deadline_end);
-                    echo(deadline, TaskList);
-                    TaskList.add(deadline);
-                    break;
-
-                case "event":
-                    String event_description = details.split("/")[0];
-                    String event_start = details.split("/")[1];
-                    String event_end = details.split("/")[2];
-                    Event event = new Event(event_description, event_start, event_end);
-                    echo(event, TaskList);
-                    TaskList.add(event);
-                    break;
-
-                case "mark":
-                    mark(details, TaskList);
-                    break;
-
-                case "unmark":
-                    unmark(details, TaskList);
-                    break;
-            }
-
-        } else {
-            switch (command) {
-                case "bye":
-                    printgoodbye();
-                    break;
-
-                case "list":
-                    listitem(TaskList);
-                    break;
-            }
+            details = input.split(" ", 2)[1];
         }
 
 
+        switch (command) {
+
+            case "todo":
+                if (parts.length < 2) {
+                    System.out.println("""
+                            ________________________________________
+                            Hmm... There's something wrong with your input!
+                            A todo needs to have a description!
+                            ________________________________________
+                            """);
+                } else {
+                    ToDo todo = new ToDo(details);
+                    echo(todo, TaskList);
+                    TaskList.add(todo);
+                }
+
+                break;
+
+            case "deadline":
+                String[] deadline_parts = details.split("/");
+
+                if (deadline_parts.length < 2) {
+                    System.out.println("""
+                            ________________________________________
+                            Hmm... There's something wrong with your input!
+                            A deadline requires a description and a end date!
+                            Slash is necessary.
+                            E.g. (deadline return book /by Sunday)
+                            ________________________________________
+                            """);
+                } else {
+                    String deadline_description = deadline_parts[0];
+                    String deadline_end = deadline_parts[1];
+                    Deadline deadline = new Deadline(deadline_description, deadline_end);
+                    echo(deadline, TaskList);
+                    TaskList.add(deadline);
+                }
+                break;
 
 
+            case "event":
+                String[] event_parts = details.split("/");
+                if (event_parts.length < 2) {
+                    System.out.println("""
+                            ________________________________________
+                            Hmm... There's something wrong with your input!
+                            An event requires a description a start date, and a end date!
+                            Slash is necessary.
+                            E.g. (event project meeting /from Mon 2pm /to 4pm)
+                            ________________________________________
+                            """);
+                } else {
+                    String event_description = event_parts[0];
+                    String event_start = event_parts[1];
+                    String event_end = event_parts[2];
+                    Event event = new Event(event_description, event_start, event_end);
+                    echo(event, TaskList);
+                    TaskList.add(event);
+                }
+                break;
+
+            case "mark":
+                if (parts.length < 2) {
+                    System.out.println("""
+                            ________________________________________
+                            Hmm... There's something wrong with your input!
+                            Which task are u marking completed?
+                            Enter the integer tagged to the task!
+                            ________________________________________
+                            """);
+                } else {
+                    mark(details, TaskList);
+                }
+                break;
+
+            case "unmark":
+                if (parts.length < 2) {
+                    System.out.println("""
+                            ________________________________________
+                            Hmm... There's something wrong with your input!
+                            Which task are u marking uncompleted?
+                            Enter the integer tagged to the task!
+                            ________________________________________
+                            """);
+                } else {
+                    unmark(details, TaskList);
+                }
+                break;
 
 
-    }
+            case "bye":
+                printgoodbye();
+                break;
+
+            case "list":
+                listitem(TaskList);
+                break;
+
+            default:
+                System.out.println("""
+                                ________________________________________
+                                Hmm... There's something wrong with your input!
+                                ________________________________________
+                                """);
+                        break;
+                    }
+                }
+
     public static void printgreeting() {
 
         System.out.println("""
@@ -124,6 +184,7 @@ public class Javen {
 
         System.out.println("________________________________________\n");
     }
+
 
     public static void mark(String item, ArrayList<Task> TaskList) {
         int number = Integer.parseInt(item);
