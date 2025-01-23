@@ -1,8 +1,9 @@
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Javen {
+    private static String[] parts;
+
     public static void main(String[] args) {
 //        String logo = " ____        _        \n"
 //                + "|  _ \\ _   _| | _____ \n"
@@ -44,7 +45,7 @@ public class Javen {
                             """);
                 } else {
                     ToDo todo = new ToDo(details);
-                    echo(todo, TaskList);
+                    System.out.println(echo(todo, TaskList));
                     TaskList.add(todo);
                 }
 
@@ -66,7 +67,7 @@ public class Javen {
                     String deadline_description = deadline_parts[0];
                     String deadline_end = deadline_parts[1];
                     Deadline deadline = new Deadline(deadline_description, deadline_end);
-                    echo(deadline, TaskList);
+                    System.out.println(echo(deadline, TaskList));
                     TaskList.add(deadline);
                 }
                 break;
@@ -74,7 +75,7 @@ public class Javen {
 
             case "event":
                 String[] event_parts = details.split("/");
-                if (event_parts.length < 2) {
+                if (event_parts.length < 3) {
                     System.out.println("""
                             ________________________________________
                             Hmm... There's something wrong with your input!
@@ -88,37 +89,14 @@ public class Javen {
                     String event_start = event_parts[1];
                     String event_end = event_parts[2];
                     Event event = new Event(event_description, event_start, event_end);
-                    echo(event, TaskList);
+                    System.out.println(echo(event, TaskList));
                     TaskList.add(event);
                 }
                 break;
 
             case "mark":
-                if (parts.length < 2) {
-                    System.out.println("""
-                            ________________________________________
-                            Hmm... There's something wrong with your input!
-                            Which task are u marking completed?
-                            Enter the integer tagged to the task!
-                            ________________________________________
-                            """);
-                } else {
-                    mark(details, TaskList);
-                }
-                break;
-
             case "unmark":
-                if (parts.length < 2) {
-                    System.out.println("""
-                            ________________________________________
-                            Hmm... There's something wrong with your input!
-                            Which task are u marking uncompleted?
-                            Enter the integer tagged to the task!
-                            ________________________________________
-                            """);
-                } else {
-                    unmark(details, TaskList);
-                }
+                System.out.println(mark(command, details, TaskList, parts));
                 break;
 
 
@@ -160,8 +138,8 @@ public class Javen {
     }
 
 
-    public static void echo(Task task, ArrayList<Task> TaskList) {
-        System.out.println(
+    public static String echo(Task task, ArrayList<Task> TaskList) {
+        return(
                 "________________________________________\nadded:" +
                 task +
                 "\nYou have " +
@@ -187,32 +165,41 @@ public class Javen {
     }
 
 
-    public static void mark(String item, ArrayList<Task> TaskList) {
-        int number = Integer.parseInt(item);
-        Task task = TaskList.get(number-1);
-        task.mark();
+    public static String mark(String command, String item, ArrayList<Task> TaskList, String[] parts) {
 
-        System.out.println("""
+
+        String error = """
+                ________________________________________
+                Hmm... There's something wrong with your input!
+                Enter the integer tagged to the task!
+                ________________________________________
+                """;
+
+
+        try {
+            if (parts.length < 2) {
+                return error;
+            }
+
+            int number = Integer.parseInt(item);
+            Task task = TaskList.get(number-1);
+
+            if (command.equals("mark")) {
+                task.mark();
+            } else {
+                task.unmark();
+            }
+
+            return("""
             ________________________________________\n
-            Task is completed!
-            """);
+            Task is marked!
+            """ +
+            task.toString() +
+            "\n________________________________________\n");
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
+            return error;
+        }
 
-        System.out.println(task.toString());
-        System.out.println("________________________________________\n");
-    }
-
-    public static void unmark(String item, ArrayList<Task> TaskList) {
-        int number = Integer.parseInt(item);
-        Task task = TaskList.get(number-1);
-        task.unmark();
-
-        System.out.println("""
-            ________________________________________\n
-            Task is not completed!
-            """);
-
-        System.out.println(task.toString());
-        System.out.println("________________________________________\n");
     }
 
     public static void delete(String item, ArrayList<Task> TaskList) {
