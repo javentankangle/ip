@@ -162,12 +162,13 @@ public class Javen {
 
     public static void echo(Task task, ArrayList<Task> TaskList) {
         System.out.println(
-                "________________________________________\n added:" +
+                "________________________________________\nadded:" +
                 task +
-                "\n________________________________________\n" +
-                "You have " +
+                "\nYou have " +
                 String.valueOf(TaskList.size() + 1) +
-                " in the list!"
+                " tasks in the list!" +
+                "\n________________________________________\n"
+
         );
 
     }
@@ -214,4 +215,7 @@ public class Javen {
         System.out.println("________________________________________\n");
     }
 
+    public static void delete(String item, ArrayList<Task> TaskList) {
+        
+    }
 }

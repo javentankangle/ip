@@ -3,18 +3,15 @@ Hello! I'm Javen
 What do you need help with?
 ________________________________________
 
-hi
 ________________________________________
 Hmm... There's something wrong with your input!
 ________________________________________
 
-todo
 ________________________________________
 Hmm... There's something wrong with your input!
 A todo needs to have a description!
 ________________________________________
 
-deadline
 ________________________________________
 Hmm... There's something wrong with your input!
 A deadline requires a description and a end date!
@@ -22,7 +19,6 @@ Slash is necessary.
 E.g. (deadline return book /by Sunday)
 ________________________________________
 
-event
 ________________________________________
 Hmm... There's something wrong with your input!
 An event requires a description a start date, and a end date!
@@ -30,84 +26,33 @@ Slash is necessary.
 E.g. (event project meeting /from Mon 2pm /to 4pm)
 ________________________________________
 
-mark
 ________________________________________
 Hmm... There's something wrong with your input!
 Which task are u marking completed?
 Enter the integer tagged to the task!
 ________________________________________
 
-unmark
 ________________________________________
 Hmm... There's something wrong with your input!
 Which task are u marking uncompleted?
 Enter the integer tagged to the task!
 ________________________________________
 
-todo borrow books
 ________________________________________
- added:[T][ ] borrow books
-________________________________________
-You have 1 in the list!
-deadline return book /by Sunday
-________________________________________
- added:[D][ ] return book by: by Sunday
-________________________________________
-You have 2 in the list!
-event project meeting /from Mon 2pm /to 4pm
-________________________________________
- added:[E][ ] project meeting from: from Mon 2pm  to: to 4pm
-________________________________________
-You have 3 in the list!
-mark 1
+added:[T][ ] borrow books
+You have 1 tasks in the list!
 ________________________________________
 
-Task is completed!
-
-[T][X] borrow books
+________________________________________
+added:[D][ ] return book by: by Sunday
+You have 2 tasks in the list!
 ________________________________________
 
-mark 2
+________________________________________
+added:[E][ ] project meeting from: from Mon 2pm  to: to 4pm
+You have 3 tasks in the list!
 ________________________________________
 
-Task is completed!
-
-[D][X] return book by: by Sunday
-________________________________________
-
-mark 3
-________________________________________
-
-Task is completed!
-
-[E][X] project meeting from: from Mon 2pm  to: to 4pm
-________________________________________
-
-unmark 1
-________________________________________
-
-Task is not completed!
-
-[T][ ] borrow books
-________________________________________
-
-unmark 2
-________________________________________
-
-Task is not completed!
-
-[D][ ] return book by: by Sunday
-________________________________________
-
-unmark 3
-________________________________________
-
-Task is not completed!
-
-[E][ ] project meeting from: from Mon 2pm  to: to 4pm
-________________________________________
-
-list
 ________________________________________
 
 These are your tasks
@@ -117,7 +62,37 @@ These are your tasks
 3.[E][ ] project meeting from: from Mon 2pm  to: to 4pm
 ________________________________________
 
-bye
+________________________________________
+
+Task is completed!
+
+[T][X] borrow books
+________________________________________
+
+________________________________________
+
+Task is completed!
+
+[D][X] return book by: by Sunday
+________________________________________
+
+________________________________________
+
+Task is completed!
+
+[E][X] project meeting from: from Mon 2pm  to: to 4pm
+________________________________________
+
+________________________________________
+
+These are your tasks
+
+1.[T][X] borrow books
+2.[D][X] return book by: by Sunday
+3.[E][X] project meeting from: from Mon 2pm  to: to 4pm
+________________________________________
+
 ________________________________________
 Bye! See you soon :)
 ________________________________________
+
