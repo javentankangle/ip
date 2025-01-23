@@ -108,6 +108,10 @@ public class Javen {
                 listitem(TaskList);
                 break;
 
+            case "delete":
+                System.out.println(delete(details, TaskList, parts));
+                break;
+
             default:
                 System.out.println("""
                                 ________________________________________
@@ -172,6 +176,7 @@ public class Javen {
                 ________________________________________
                 Hmm... There's something wrong with your input!
                 Enter the integer tagged to the task!
+                input "list" to check the integer
                 ________________________________________
                 """;
 
@@ -202,7 +207,35 @@ public class Javen {
 
     }
 
-    public static void delete(String item, ArrayList<Task> TaskList) {
-        
+    public static String delete(String item, ArrayList<Task> TaskList, String[] parts) {
+        String error = """
+                ________________________________________
+                Hmm... There's something wrong with your input!
+                Enter the integer tagged to the task!
+                input "list" to check the integer
+                ________________________________________
+                """;
+
+        try {
+            if (parts.length < 2) {
+                return error;
+            }
+
+            int number = Integer.parseInt(item);
+            Task task = TaskList.get(number-1);
+
+
+            TaskList.remove(task);
+            return("""
+            ________________________________________\n
+            Task is deleted!
+            """ +
+                    task.toString() +
+                    "\n________________________________________\n");
+
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
+            return error;
+        }
+
     }
 }
