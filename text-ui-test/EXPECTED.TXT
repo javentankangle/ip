@@ -29,21 +29,49 @@ ________________________________________
 ________________________________________
 Hmm... There's something wrong with your input!
 Enter the integer tagged to the task!
+input "list" to check the integer
 ________________________________________
 
 ________________________________________
 Hmm... There's something wrong with your input!
 Enter the integer tagged to the task!
+input "list" to check the integer
 ________________________________________
 
 ________________________________________
 Hmm... There's something wrong with your input!
 Enter the integer tagged to the task!
+input "list" to check the integer
 ________________________________________
 
 ________________________________________
 Hmm... There's something wrong with your input!
 Enter the integer tagged to the task!
+input "list" to check the integer
+________________________________________
+
+________________________________________
+Hmm... There's something wrong with your input!
+Enter the integer tagged to the task!
+input "list" to check the integer
+________________________________________
+
+________________________________________
+Hmm... There's something wrong with your input!
+Enter the integer tagged to the task!
+input "list" to check the integer
+________________________________________
+
+________________________________________
+Hmm... There's something wrong with your input!
+Enter the integer tagged to the task!
+input "list" to check the integer
+________________________________________
+
+________________________________________
+Hmm... There's something wrong with your input!
+Enter the integer tagged to the task!
+input "list" to check the integer
 ________________________________________
 
 ________________________________________
@@ -109,6 +137,45 @@ These are your tasks
 1.[T][X] borrow books
 2.[D][X] return book by: by Sunday
 3.[E][X] project meeting from: from Mon 2pm  to: to 4pm
+________________________________________
+
+________________________________________
+
+Task is deleted!
+[E][X] project meeting from: from Mon 2pm  to: to 4pm
+________________________________________
+
+________________________________________
+
+These are your tasks
+
+1.[T][X] borrow books
+2.[D][X] return book by: by Sunday
+________________________________________
+
+________________________________________
+
+Task is deleted!
+[T][X] borrow books
+________________________________________
+
+________________________________________
+
+These are your tasks
+
+1.[D][X] return book by: by Sunday
+________________________________________
+
+________________________________________
+
+Task is deleted!
+[D][X] return book by: by Sunday
+________________________________________
+
+________________________________________
+
+These are your tasks
+
 ________________________________________
 
 ________________________________________

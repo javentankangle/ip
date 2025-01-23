@@ -5,7 +5,11 @@ event
 mark
 unmark
 mark 1
-mark 2
+unmark 1
+mark any
+unmark any
+delete 1
+delete any
 todo borrow books
 deadline return book
 deadline return book /by Sunday
@@ -15,5 +19,11 @@ list
 mark 1
 mark 2
 mark 3
+list
+delete 3
+list
+delete 1
+list
+delete 1
 list
 bye
