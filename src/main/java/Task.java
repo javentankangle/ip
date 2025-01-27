@@ -8,11 +8,11 @@ public class Task {
         this.isMark = false;
     }
 
-    public void mark(){
+    public void markTask(){
         this.isMark = true;
     }
 
-    public void unmark(){
+    public void unmarkTask(){
         this.isMark = false;
     }
 

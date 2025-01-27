@@ -1,14 +1,14 @@
 public class Deadline extends Task {
 
-    private String end;
+    private String endDate;
 
     public Deadline(String Description, String end) {
         super(Description);
-        this.end = end;
+        this.endDate = end;
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + "by: " + this.end;
+        return "[D]" + super.toString() + "by: " + this.endDate;
     }
 }
