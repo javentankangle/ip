@@ -125,6 +125,10 @@ public class Javen {
             saveTask(taskList);
             break;
 
+        case "find":
+            searchTask(details,taskList, parts);
+            break;
+
         default:
             System.out.println("""
                             ________________________________________
@@ -347,5 +351,51 @@ public class Javen {
             taskList = new ArrayList<>();
             return taskList;
         }
+    }
+
+
+    /**
+     * Prints a list of task in user's task list given a keyword
+     * If the keyword is blank or doesn't match any task, prints error message
+     *
+     * @param item Keyword input by user.
+     * @param taskList User's list of task.
+     * @param parts details of user's input
+     */
+    public static void searchTask(String item, ArrayList<Task> taskList, String[] parts) {
+        String error = """
+                ________________________________________
+                Hmm... There's something wrong with your input!
+                Enter the keyword that u want to search!
+                input "list" to check the task u have!
+                ________________________________________
+                """;
+
+
+        if (parts.length < 2) {
+            System.out.println(error);
+        } else {
+            ArrayList<String> taskString = new ArrayList<>();
+            for (int i = 0; i < taskList.size(); i++) {
+                if (taskList.get(i).toString().contains(item)) {
+                    taskString.add(String.valueOf(i + 1) +
+                            "." +
+                            taskList.get(i).toString());
+                }
+            }
+
+
+            System.out.println("________________________________________\n");
+            if (taskString.isEmpty()) {
+                System.out.println("No tasks were found under "  + item);
+            } else {
+                for (String task : taskString) {
+                    System.out.println(task);
+                }
+            }
+            System.out.println("________________________________________\n");
+        }
+
+
     }
 }

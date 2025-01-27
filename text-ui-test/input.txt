@@ -26,4 +26,13 @@ delete 1
 list
 delete 1
 list
+todo books
+todo fire
+todo book
+find
+find 1
+find book
+find books
+find fire
+list
 bye
