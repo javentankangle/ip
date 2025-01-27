@@ -28,6 +28,15 @@ public class Javen {
 
     }
 
+
+    /**
+     * Reads user input and runs function based one user input
+     * User inputs can contain (todo, deadline, event, mark, unmark, bye, list and delete)
+     * Otherwise, prints an error message for user
+     *
+     * @param input User input.
+     * @param taskList An arraylist of task.
+     */
     public static void readInput(String input, ArrayList<Task> taskList) {
         String[] parts = input.split(" ", 2);
         String command = input.split(" ", 2)[0];
@@ -132,6 +141,10 @@ public class Javen {
                 }
     }
 
+
+    /**
+     * Prints a greeting statement for the user.
+     */
     public static void printGreeting() {
 
         System.out.println("""
@@ -142,6 +155,10 @@ public class Javen {
                 """);
     }
 
+
+    /**
+     * Prints a goodbye statement to user.
+     */
     public static void printGoodbye() {
         System.out.println("""
                 ________________________________________
@@ -152,6 +169,13 @@ public class Javen {
     }
 
 
+    /**
+     * Prints a string to indicated successful adding of task and all user's task.
+     *
+     * @param task Task given by the user.
+     * @param taskList ArrayList of the user's task.
+     * @return String of user's task
+     */
     public static String echo(Task task, ArrayList<Task> taskList) {
         return(
                 "________________________________________\nadded:" +
@@ -165,6 +189,12 @@ public class Javen {
 
     }
 
+
+    /**
+     * Prints the list of user's task
+     *
+     * @param taskList ArrayList of user's task
+     */
     public static void listItem(ArrayList<Task> taskList) {
         System.out.println("________________________________________\n");
         System.out.println("These are your tasks\n");
@@ -179,6 +209,17 @@ public class Javen {
     }
 
 
+    /**
+     * Returns a string indicating successful mark/unmark of user's task
+     * If the task item number is not indicated, returns error/guide message
+     *
+     * @param command User input
+     * @param item The task ID (index of task in taskList - 1)
+     * @param taskList User's list of task
+     * @param parts Details of the task
+     *
+     * @return a message indicating that task is successfully marked/unmarked
+     */
     public static String markTask(String command, String item, ArrayList<Task> taskList, String[] parts) {
 
 
@@ -217,6 +258,17 @@ public class Javen {
 
     }
 
+
+    /**
+     * Returns a string indicating that task is deleted successfully
+     * If the task item number is not indicated, returns error/guide message
+     *
+     * @param item The task ID (index of task in taskList - 1)
+     * @param taskList User's list of task
+     * @param parts Details of the task
+     *
+     * @return a message indicating that task is deleted successfully
+     */
     public static String deleteTask(String item, ArrayList<Task> taskList, String[] parts) {
         String error = """
                 ________________________________________
@@ -249,6 +301,13 @@ public class Javen {
 
     }
 
+
+    /**
+     * Saves taskList to local hard drive
+     * If folder ".data" is not created, creates folder.
+     *
+     * @param taskList User's list of task
+     */
     public static void saveTask(ArrayList<Task> taskList) {
         Path folderPath = Paths.get(".data");
 
@@ -268,6 +327,13 @@ public class Javen {
         }
     }
 
+
+    /**
+     * Returns user's list of task loaded from hard drive
+     * If file is empty, file is not available create an empty arraylist of task
+     *
+     * @return User's list of task
+     */
     public static ArrayList<Task> loadTask() {
 
         ArrayList<Task> taskList;

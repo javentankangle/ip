@@ -14,14 +14,23 @@ public class Task implements Serializable {
         this.isMark = false;
     }
 
+
+    /**
+     * Put mark task status to be true
+     */
     public void markTask(){
         this.isMark = true;
     }
 
+
+    /**
+     * Put mark task status to be false
+     */
     public void unmarkTask(){
         this.isMark = false;
     }
 
+    @Override
     public String toString() {
         if (this.isMark) {
             return "[X] " + this.description;
