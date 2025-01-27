@@ -1,8 +1,12 @@
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Javen {
-    private static String[] parts;
 
     public static void main(String[] args) {
 //        String logo = " ____        _        \n"
@@ -13,7 +17,8 @@ public class Javen {
 //        System.out.println("Hello from\n" + logo)
 
         printGreeting();
-        ArrayList<Task> taskList = new ArrayList<>();
+        ArrayList<Task> taskList;
+        taskList = loadTask();
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
@@ -47,6 +52,7 @@ public class Javen {
                 ToDo toDo = new ToDo(details);
                 System.out.println(echo(toDo, taskList));
                 taskList.add(toDo);
+                saveTask(taskList);
             }
 
             break;
@@ -69,6 +75,7 @@ public class Javen {
                 Deadline deadline = new Deadline(deadlineDescription, deadlineEnd);
                 System.out.println(echo(deadline, taskList));
                 taskList.add(deadline);
+                saveTask(taskList);
             }
             break;
 
@@ -91,12 +98,14 @@ public class Javen {
                 Event event = new Event(eventDescription, eventStart, eventEnd);
                 System.out.println(echo(event, taskList));
                 taskList.add(event);
+                saveTask(taskList);
             }
             break;
 
-        case "markTask":
-        case "unmarkTask":
+        case "mark":
+        case "unmark":
             System.out.println(markTask(command, details, taskList, parts));
+            saveTask(taskList);
             break;
 
 
@@ -110,6 +119,7 @@ public class Javen {
 
         case "delete":
             System.out.println(deleteTask(details, taskList, parts));
+            saveTask(taskList);
             break;
 
         default:
@@ -155,14 +165,14 @@ public class Javen {
 
     }
 
-    public static void listItem(ArrayList<Task> list) {
+    public static void listItem(ArrayList<Task> taskList) {
         System.out.println("________________________________________\n");
         System.out.println("These are your tasks\n");
 
-        for (int i = 0; i < list.size(); i++) {
+        for (int i = 0; i < taskList.size(); i++) {
             System.out.println(String.valueOf(i + 1) +
                     "." +
-                        list.get(i).toString());
+                        taskList.get(i).toString());
         }
 
         System.out.println("________________________________________\n");
@@ -189,14 +199,14 @@ public class Javen {
             int number = Integer.parseInt(item);
             Task task = taskList.get(number-1);
 
-            if (command.equals("markTask")) {
+            if (command.equals("mark")) {
                 task.markTask();
             } else {
                 task.unmarkTask();
             }
 
             return("""
-            ________________________________________\n
+            ________________________________________
             Task is marked!
             """ +
                 task.toString() +
@@ -227,7 +237,7 @@ public class Javen {
 
             taskList.remove(task);
             return("""
-            ________________________________________\n
+            ________________________________________
             Task is deleted!
             """ +
                 task.toString() +
@@ -237,5 +247,45 @@ public class Javen {
             return error;
         }
 
+    }
+
+    public static void saveTask(ArrayList<Task> taskList) {
+        Path folderPath = Paths.get(".data");
+
+        try {
+            if (!Files.exists(folderPath)) {
+                Files.createDirectories(folderPath);
+                System.out.println("Folder created: " + folderPath.toAbsolutePath());
+            }
+        } catch (IOException e) {
+            System.err.println("Error saving tasks: " + e.getMessage());
+        }
+
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(".data/duke.txt"))) {
+            oos.writeObject(taskList);
+        } catch (IOException e) {
+            System.err.println("Error saving tasks: " + e.getMessage());
+        }
+    }
+
+    public static ArrayList<Task> loadTask() {
+
+        ArrayList<Task> taskList;
+        String path = ".data/duke.txt";
+        File file = new File(path);
+
+        if (file.exists() && file.length() > 0) {
+            try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(path))) {
+                taskList = (ArrayList<Task>) ois.readObject();
+                return taskList;
+            } catch (IOException | ClassNotFoundException e) {
+                System.err.println("Error loading tasks: " + e.getMessage());
+                taskList = new ArrayList<>();
+                return taskList;
+            }
+        } else {
+            taskList = new ArrayList<>();
+            return taskList;
+        }
     }
 }
