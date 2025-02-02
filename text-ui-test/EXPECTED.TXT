@@ -88,7 +88,21 @@ E.g. (deadline return book /by Sunday)
 ________________________________________
 
 ________________________________________
-added:[D][ ] return book by: by Sunday
+Error: Invalid format.
+E.g. deadline borrow books /by 2022-01-05 1800
+E.g. event meeting /from 2022-01-05 1800 /to 2022-01-05 1900
+________________________________________
+
+________________________________________
+Error: Sunday, Invalid date format. Expected format is yyyy-mm-dd HH:mm
+________________________________________
+
+________________________________________
+Error: 123, Invalid date format. Expected format is yyyy-mm-dd HH:mm
+________________________________________
+
+________________________________________
+added:[D][ ] return book by: Jan 1 2022 18:00
 You have 2 tasks in the list!
 ________________________________________
 
@@ -100,7 +114,34 @@ E.g. (event project meeting /from Mon 2pm /to 4pm)
 ________________________________________
 
 ________________________________________
-added:[E][ ] project meeting from: from Mon 2pm  to: to 4pm
+Hmm... There's something wrong with your input!
+An event requires a description a start date, and a end date!
+Slash is necessary.
+E.g. (event project meeting /from Mon 2pm /to 4pm)
+________________________________________
+
+________________________________________
+Error: Mon 2pm, Invalid date format. Expected format is yyyy-mm-dd HH:mm
+________________________________________
+
+________________________________________
+Error: 4pm, Invalid date format. Expected format is yyyy-mm-dd HH:mm
+________________________________________
+
+________________________________________
+Error: 123, Invalid date format. Expected format is yyyy-mm-dd HH:mm
+________________________________________
+
+________________________________________
+Error: 123, Invalid date format. Expected format is yyyy-mm-dd HH:mm
+________________________________________
+
+________________________________________
+Error: 11111111111111111111, Invalid date format. Expected format is yyyy-mm-dd HH:mm
+________________________________________
+
+________________________________________
+added:[E][ ] project meeting from: Jan 1 2022 19:00 to: Jan 1 2022 20:00
 You have 3 tasks in the list!
 ________________________________________
 
@@ -109,8 +150,8 @@ ________________________________________
 These are your tasks
 
 1.[T][ ] borrow books
-2.[D][ ] return book by: by Sunday
-3.[E][ ] project meeting from: from Mon 2pm  to: to 4pm
+2.[D][ ] return book by: Jan 1 2022 18:00
+3.[E][ ] project meeting from: Jan 1 2022 19:00 to: Jan 1 2022 20:00
 ________________________________________
 
 ________________________________________
@@ -120,12 +161,12 @@ ________________________________________
 
 ________________________________________
 Task is marked!
-[D][X] return book by: by Sunday
+[D][X] return book by: Jan 1 2022 18:00
 ________________________________________
 
 ________________________________________
 Task is marked!
-[E][X] project meeting from: from Mon 2pm  to: to 4pm
+[E][X] project meeting from: Jan 1 2022 19:00 to: Jan 1 2022 20:00
 ________________________________________
 
 ________________________________________
@@ -133,13 +174,13 @@ ________________________________________
 These are your tasks
 
 1.[T][X] borrow books
-2.[D][X] return book by: by Sunday
-3.[E][X] project meeting from: from Mon 2pm  to: to 4pm
+2.[D][X] return book by: Jan 1 2022 18:00
+3.[E][X] project meeting from: Jan 1 2022 19:00 to: Jan 1 2022 20:00
 ________________________________________
 
 ________________________________________
 Task is deleted!
-[E][X] project meeting from: from Mon 2pm  to: to 4pm
+[E][X] project meeting from: Jan 1 2022 19:00 to: Jan 1 2022 20:00
 ________________________________________
 
 ________________________________________
@@ -147,7 +188,7 @@ ________________________________________
 These are your tasks
 
 1.[T][X] borrow books
-2.[D][X] return book by: by Sunday
+2.[D][X] return book by: Jan 1 2022 18:00
 ________________________________________
 
 ________________________________________
@@ -159,12 +200,12 @@ ________________________________________
 
 These are your tasks
 
-1.[D][X] return book by: by Sunday
+1.[D][X] return book by: Jan 1 2022 18:00
 ________________________________________
 
 ________________________________________
 Task is deleted!
-[D][X] return book by: by Sunday
+[D][X] return book by: Jan 1 2022 18:00
 ________________________________________
 
 ________________________________________
