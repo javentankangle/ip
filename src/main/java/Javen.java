@@ -3,8 +3,15 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.LocalDateTime;
+
+
 import java.util.ArrayList;
 import java.util.Scanner;
+
+
 
 public class Javen {
 
@@ -74,7 +81,10 @@ public class Javen {
                         """);
             } else {
                 String deadlineDescription = deadlineParts[0];
-                String deadlineEnd = deadlineParts[1];
+                LocalDateTime deadlineEnd = parseDateTime(deadlineParts[1]);
+                if (deadlineEnd == null) {
+                    break;
+                }
                 Deadline deadline = new Deadline(deadlineDescription, deadlineEnd);
                 System.out.println(echo(deadline, taskList));
                 taskList.add(deadline);
@@ -96,8 +106,11 @@ public class Javen {
                         """);
             } else {
                 String eventDescription = event_parts[0];
-                String eventStart = event_parts[1];
-                String eventEnd = event_parts[2];
+                LocalDateTime eventStart = parseDateTime(event_parts[1]);
+                LocalDateTime eventEnd = parseDateTime(event_parts[2]);
+                if (eventStart == null || eventEnd == null) {
+                    break;
+                }
                 Event event = new Event(eventDescription, eventStart, eventEnd);
                 System.out.println(echo(event, taskList));
                 taskList.add(event);
@@ -395,6 +408,58 @@ public class Javen {
             }
             System.out.println("________________________________________\n");
         }
+
+
+    }
+
+
+    /**
+     * Prints a list of task in user's task list given a keyword
+     * If the keyword is blank or doesn't match any task, prints error message
+     *
+     * @param item Keyword input by user.
+     * @return Parsed datetime in LocalDateTime data type
+     */
+    public static LocalDateTime parseDateTime(String item) {
+
+        String stringDateTime;
+
+        if (item.startsWith("from")) {
+            stringDateTime = item.substring(5).trim();
+        } else if (item.startsWith("by") || item.startsWith("to")) {
+            stringDateTime = item.substring(3).trim();
+        } else {
+            System.out.println("""
+                    ________________________________________
+                    Error: Invalid format.
+                    E.g. deadline borrow books /by 2022-01-05 1800
+                    E.g. event meeting /from 2022-01-05 1800 /to 2022-01-05 1900
+                    ________________________________________
+                    """);
+            return null;
+        }
+
+        if (stringDateTime.length() < 13) {
+            System.out.println("________________________________________\n"
+                    + "Error: " + stringDateTime
+                                + ", Invalid date format. Expected format is yyyy-mm-dd HH:mm\n"
+                                        + "________________________________________\n");
+            return null;
+        }
+
+        try {
+            String formattedInput = stringDateTime.substring(0, 10) +
+                    "T" + stringDateTime.substring(11, 13) + ":" + stringDateTime.substring(13);
+            DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+            return LocalDateTime.parse(formattedInput, formatter);
+        } catch (DateTimeParseException e) {
+            System.out.println("________________________________________\n"
+                    + "Error: " + stringDateTime
+                            + ", Invalid date format. Expected format is yyyy-mm-dd HH:mm\n"
+                                    + "________________________________________\n");
+            return null;
+        }
+
 
 
     }
