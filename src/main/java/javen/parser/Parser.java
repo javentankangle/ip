@@ -21,8 +21,8 @@ public class Parser {
      *
      * @param input User input.
      * @param taskList An arraylist of task.
-     * @param ui ui to print messages
-     * @param storage storage to save tasks
+     * @param ui javen.ui to print messages
+     * @param storage javen.storage to save tasks
      */
     public void readInput(String input, TaskList taskList, Ui ui, Storage storage) {
         String[] parts = input.split(" ", 2);
@@ -154,7 +154,7 @@ public class Parser {
      * @param taskList list of user's tasks
      * @return index in array or null if index is outofbounds
      */
-    private int checkString_ToInteger (String details, String[] parts, TaskList taskList) {
+    protected int checkString_ToInteger (String details, String[] parts, TaskList taskList) {
         int index;
 
         try {
