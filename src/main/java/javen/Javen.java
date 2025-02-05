@@ -1,3 +1,10 @@
+package javen;
+
+import javen.parser.Parser;
+import javen.storage.Storage;
+import javen.tasklist.TaskList;
+import javen.ui.Ui;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -17,7 +24,6 @@ public class Javen {
         try {
             taskList = new TaskList(storage.loadTask());
         } catch (IOException | ClassNotFoundException e) {
-            ui.showMessage("Failed to load tasks." + e.getMessage());
             taskList = new TaskList(new ArrayList<>());
         }
 
