@@ -1,12 +1,16 @@
 package javen.parser;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.ArrayList;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import javen.task.Task;
 import javen.task.ToDo;
 import javen.tasklist.TaskList;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import java.util.ArrayList;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 
 public class ParserTest {
@@ -24,12 +28,12 @@ public class ParserTest {
 
     @Test
     public void checkString_toIntegerTest() {
-        String details = "2";  // Valid task index (1-based)
+        String details = "2";
         String[] parts = {"todo", "2"};
 
         Parser parser;
         parser = new Parser();
-        int result = parser.checkString_ToInteger(details, parts, taskList);
+        int result = parser.checkStringToInteger(details, parts, taskList);
         assertEquals(1, result);
     }
 }

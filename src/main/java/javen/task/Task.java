@@ -20,7 +20,7 @@ public class Task implements Serializable {
     /**
      * Put mark task status to be true
      */
-    public void markTask(){
+    public void markTask() {
         this.isMark = true;
     }
 
@@ -28,7 +28,7 @@ public class Task implements Serializable {
     /**
      * Put mark task status to be false
      */
-    public void unmarkTask(){
+    public void unmarkTask() {
         this.isMark = false;
     }
 

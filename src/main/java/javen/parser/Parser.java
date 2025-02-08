@@ -1,5 +1,9 @@
 package javen.parser;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import javen.storage.Storage;
 import javen.task.Deadline;
 import javen.task.Event;
@@ -7,9 +11,8 @@ import javen.task.ToDo;
 import javen.tasklist.TaskList;
 import javen.ui.Ui;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
+
+
 
 
 public class Parser {
@@ -80,8 +83,8 @@ public class Parser {
 
 
         case "event":
-            String[] event_parts = details.split("/");
-            if (event_parts.length < 3) {
+            String[] eventParts = details.split("/");
+            if (eventParts.length < 3) {
                 System.out.println("""
                         ________________________________________
                         Hmm... There's something wrong with your input!
@@ -91,9 +94,9 @@ public class Parser {
                         ________________________________________
                         """);
             } else {
-                String eventDescription = event_parts[0];
-                LocalDateTime eventStart = parseDateTime(event_parts[1], sb);
-                LocalDateTime eventEnd = parseDateTime(event_parts[2], sb);
+                String eventDescription = eventParts[0];
+                LocalDateTime eventStart = parseDateTime(eventParts[1], sb);
+                LocalDateTime eventEnd = parseDateTime(eventParts[2], sb);
                 if (eventStart == null || eventEnd == null) {
                     ui.showMessage(sb.toString());
                     sb.setLength(0);
@@ -106,11 +109,11 @@ public class Parser {
             break;
 
         case "mark":
-            ui.showMessage(taskList.markTask(checkString_ToInteger(details, parts, taskList)));
+            ui.showMessage(taskList.markTask(checkStringToInteger(details, parts, taskList)));
             break;
 
         case "unmark":
-            ui.showMessage(taskList.unmarkTask(checkString_ToInteger(details, parts, taskList)));
+            ui.showMessage(taskList.unmarkTask(checkStringToInteger(details, parts, taskList)));
             break;
 
 
@@ -124,12 +127,12 @@ public class Parser {
             break;
 
         case "delete":
-            ui.showMessage(taskList.deleteTask(checkString_ToInteger(details, parts, taskList)));
+            ui.showMessage(taskList.deleteTask(checkStringToInteger(details, parts, taskList)));
             storage.saveTask(taskList);
             break;
 
         case "find":
-            ui.showMessage(taskList.searchTask(checkString_ToString(details, parts)));
+            ui.showMessage(taskList.searchTask(checkStringToString(details, parts)));
             break;
 
         default:
@@ -154,7 +157,7 @@ public class Parser {
      * @param taskList list of user's tasks
      * @return index in array or null if index is outofbounds
      */
-    protected int checkString_ToInteger (String details, String[] parts, TaskList taskList) {
+    protected int checkStringToInteger(String details, String[] parts, TaskList taskList) {
         int index;
 
         try {
@@ -180,7 +183,7 @@ public class Parser {
      * @param parts user input split into arrays
      * @return keyword or null if keyword not provided
      */
-    private String checkString_ToString (String details, String[] parts) {
+    private String checkStringToString(String details, String[] parts) {
         if (parts.length < 2) {
             return null;
         }
@@ -224,8 +227,8 @@ public class Parser {
         }
 
         try {
-            String formattedInput = stringDateTime.substring(0, 10) +
-                    "T" + stringDateTime.substring(11, 13) + ":" + stringDateTime.substring(13);
+            String formattedInput = stringDateTime.substring(0, 10) + "T" + stringDateTime.substring(11, 13)
+                    + ":" + stringDateTime.substring(13);
             DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
             return LocalDateTime.parse(formattedInput, formatter);
         } catch (DateTimeParseException e) {

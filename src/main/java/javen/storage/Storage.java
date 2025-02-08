@@ -1,13 +1,16 @@
 package javen.storage;
 
-import javen.task.Task;
-import javen.tasklist.TaskList;
 
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+
+import javen.task.Task;
+import javen.tasklist.TaskList;
+
+
 
 public class Storage {
     private String filePath;
@@ -48,8 +51,7 @@ public class Storage {
      *
      * @return User's list of task
      */
-    public ArrayList<Task> loadTask() throws IOException, ClassNotFoundException{
-
+    public ArrayList<Task> loadTask() throws IOException, ClassNotFoundException {
         File file = new File(filePath);
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {
             return (ArrayList<Task>) ois.readObject();
