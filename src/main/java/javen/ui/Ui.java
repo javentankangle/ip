@@ -5,9 +5,9 @@ public class Ui {
     /**
      * Prints a greeting statement for the user.
      */
-    public void printGreeting() {
+    public String printGreeting() {
 
-        System.out.println("""
+        return("""
                 ________________________________________
                 Hello! I'm Javen
                 What do you need help with?
@@ -19,8 +19,8 @@ public class Ui {
     /**
      * Prints a goodbye statement to user.
      */
-    public void printGoodbye() {
-        System.out.println("""
+    public String printGoodbye() {
+        return ("""
                 ________________________________________
                 Bye! See you soon :)
                 ________________________________________
@@ -32,8 +32,8 @@ public class Ui {
     /**
      * Prints a message to user.
      */
-    public void showMessage(String message) {
-        System.out.println(message);
+    public String showMessage(String message) {
+        return message;
     }
 
 }
