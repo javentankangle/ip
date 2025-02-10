@@ -27,7 +27,7 @@ public class Parser {
      * @param ui javen.ui to print messages
      * @param storage javen.storage to save tasks
      */
-    public void readInput(String input, TaskList taskList, Ui ui, Storage storage) {
+    public String readInput(String input, TaskList taskList, Ui ui, Storage storage) {
         String[] parts = input.split(" ", 2);
         String command = parts[0];
         StringBuilder sb = new StringBuilder();
@@ -42,7 +42,7 @@ public class Parser {
 
         case "todo":
             if (parts.length < 2) {
-                ui.showMessage("""
+                return ui.showMessage("""
                         ________________________________________
                         Hmm... There's something wrong with your input!
                         A todo needs to have a description!
@@ -50,16 +50,15 @@ public class Parser {
                         """);
             } else {
                 ToDo toDo = new ToDo(details);
-                ui.showMessage(taskList.addTask(toDo));
+                storage.saveTask(taskList);
+                return ui.showMessage(taskList.addTask(toDo));
             }
-            storage.saveTask(taskList);
-            break;
 
         case "deadline":
             String[] deadlineParts = details.split("/");
 
             if (deadlineParts.length < 2) {
-                System.out.println("""
+                return ui.showMessage("""
                         ________________________________________
                         Hmm... There's something wrong with your input!
                         A deadline requires a description and a end date!
@@ -71,21 +70,20 @@ public class Parser {
                 String deadlineDescription = deadlineParts[0];
                 LocalDateTime deadlineEnd = parseDateTime(deadlineParts[1], sb);
                 if (deadlineEnd == null) {
-                    ui.showMessage(sb.toString());
+                    String result = sb.toString();
                     sb.setLength(0);
-                    break;
+                    return ui.showMessage(result);
                 }
                 Deadline deadline = new Deadline(deadlineDescription, deadlineEnd);
-                ui.showMessage(taskList.addTask(deadline));
                 storage.saveTask(taskList);
+                return ui.showMessage(taskList.addTask(deadline));
             }
-            break;
 
 
         case "event":
             String[] eventParts = details.split("/");
             if (eventParts.length < 3) {
-                System.out.println("""
+                return ui.showMessage("""
                         ________________________________________
                         Hmm... There's something wrong with your input!
                         An event requires a description a start date, and a end date!
@@ -98,50 +96,44 @@ public class Parser {
                 LocalDateTime eventStart = parseDateTime(eventParts[1], sb);
                 LocalDateTime eventEnd = parseDateTime(eventParts[2], sb);
                 if (eventStart == null || eventEnd == null) {
-                    ui.showMessage(sb.toString());
+                    String result = sb.toString();
                     sb.setLength(0);
-                    break;
+                    return ui.showMessage(result);
                 }
                 Event event = new Event(eventDescription, eventStart, eventEnd);
-                ui.showMessage(taskList.addTask(event));
                 storage.saveTask(taskList);
+                return ui.showMessage(taskList.addTask(event));
             }
-            break;
 
         case "mark":
-            ui.showMessage(taskList.markTask(checkStringToInteger(details, parts, taskList)));
-            break;
+            return ui.showMessage(taskList.markTask(checkStringToInteger(details, parts, taskList)));
+
 
         case "unmark":
-            ui.showMessage(taskList.unmarkTask(checkStringToInteger(details, parts, taskList)));
-            break;
+            return ui.showMessage(taskList.unmarkTask(checkStringToInteger(details, parts, taskList)));
 
 
         case "bye":
-            ui.printGoodbye();
-            System.exit(0);
-            break;
+            return ui.printGoodbye();
 
         case "list":
-            ui.showMessage(taskList.listTask());
-            break;
+            return ui.showMessage(taskList.listTask());
+
 
         case "delete":
-            ui.showMessage(taskList.deleteTask(checkStringToInteger(details, parts, taskList)));
             storage.saveTask(taskList);
-            break;
+            return ui.showMessage(taskList.deleteTask(checkStringToInteger(details, parts, taskList)));
+
 
         case "find":
-            ui.showMessage(taskList.searchTask(checkStringToString(details, parts)));
-            break;
+            return ui.showMessage(taskList.searchTask(checkStringToString(details, parts)));
 
         default:
-            System.out.println("""
+            return ui.showMessage("""
                     ________________________________________
                     Hmm... There's something wrong with your input!
                     ________________________________________
                     """);
-            break;
         }
 
 
