@@ -1,10 +1,12 @@
 package javen.tasklist;
 
-import javen.storage.Storage;
-import javen.task.Task;
-
 import java.util.ArrayList;
 
+import javen.task.Task;
+
+/**
+ * A tasklist that handles various tasks
+ */
 public class TaskList {
     private ArrayList<Task> tasks;
 
@@ -17,7 +19,7 @@ public class TaskList {
      * Saves taskList to local hard drive
      * If folder ".data" is not created, creates folder.
      *
-     * @return ArrayList<Task>
+     * @return ArrayList of Task
      */
     public ArrayList<Task> getTasks() {
         return this.tasks;
@@ -41,7 +43,7 @@ public class TaskList {
      * @return a message to user
      */
     public String addTask(Task task) {
-
+        assert task != null : "Task to be added should not be null";
         StringBuilder sb = new StringBuilder();
 
         tasks.add(task);
@@ -59,11 +61,13 @@ public class TaskList {
      * @return a message to user
      */
     public String listTask() {
+        assert tasks != null : "Tasks list should be initialized";
+
         StringBuilder sb = new StringBuilder();
 
         sb.append("________________________________________\n").append("These are your tasks!\n");
         for (int i = 0; i < tasks.size(); i++) {
-            sb.append(String.valueOf(i+1)).append(". ").append(tasks.get(i)).append("\n");
+            sb.append(String.valueOf(i + 1)).append(". ").append(tasks.get(i)).append("\n");
         }
         sb.append("________________________________________\n");
 
@@ -79,6 +83,7 @@ public class TaskList {
      * @return a message to user
      */
     public String deleteTask(Integer index) {
+        assert index != null : "Task index should not be null";
         String error = """
                 ________________________________________
                 Hmm... There's something wrong with your input!
@@ -119,6 +124,7 @@ public class TaskList {
      * @return a message to user
      */
     public String markTask(Integer index) {
+        assert index != null : "Task index should not be null";
         String error = """
                 ________________________________________
                 Hmm... There's something wrong with your input!
@@ -128,7 +134,7 @@ public class TaskList {
                 """;
 
         if (index == -1) {
-           return error;
+            return error;
         }
 
 
@@ -158,7 +164,8 @@ public class TaskList {
      * @return a message to user
      */
     public String unmarkTask(Integer index) {
-        String error =  """
+        assert index != null : "Task index should not be null";
+        String error = """
                 ________________________________________
                 Hmm... There's something wrong with your input!
                 Enter the integer tagged to the task!
@@ -197,6 +204,7 @@ public class TaskList {
      * @return a message to user
      */
     public String searchTask(String keyword) {
+        assert tasks != null : "Tasks list should be initialized";
 
         if (keyword == null) {
             return ("""
@@ -213,9 +221,7 @@ public class TaskList {
         ArrayList<String> taskString = new ArrayList<>();
         for (int i = 0; i < this.tasks.size(); i++) {
             if (this.tasks.get(i).toString().contains(keyword)) {
-                taskString.add(String.valueOf(i + 1) +
-                        "." +
-                        this.tasks.get(i).toString());
+                taskString.add(String.valueOf(i + 1) + "." + this.tasks.get(i).toString());
             }
         }
 

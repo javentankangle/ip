@@ -1,9 +1,17 @@
 package javen.task;
 
+/**
+ * Consist of specific task called todo
+ */
 public class ToDo extends Task {
 
-    public ToDo(String Description) {
-        super(Description);
+    /**
+     * Constructor that takes in a description
+     *
+     * @param description details of the todo
+     */
+    public ToDo(String description) {
+        super(description);
     }
 
     @Override

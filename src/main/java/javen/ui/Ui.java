@@ -1,13 +1,16 @@
 package javen.ui;
 
+
+/**
+ * Handles the printing of messages to user
+ */
 public class Ui {
 
     /**
      * Prints a greeting statement for the user.
      */
     public String printGreeting() {
-
-        return("""
+        return ("""
                 ________________________________________
                 Hello! I'm Javen
                 What do you need help with?
