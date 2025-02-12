@@ -3,13 +3,24 @@ package javen.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Consist of specific task called event
+ */
 public class Event extends Task {
 
     private LocalDateTime startDate;
     private LocalDateTime endDate;
 
-    public Event(String Description, LocalDateTime start, LocalDateTime end) {
-        super(Description);
+    /**
+     * Constructor that takes in a description and a startime and endtime in localdatetime format
+     *
+     * @param description details of the deadline
+     * @param start the start of event in local datetime
+     * @param end the end of event in local datetime
+     */
+
+    public Event(String description, LocalDateTime start, LocalDateTime end) {
+        super(description);
         this.startDate = start;
         this.endDate = end;
     }

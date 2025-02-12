@@ -10,7 +10,9 @@ import javen.ui.Ui;
 
 
 
-
+/**
+ * Consist of overall project flow
+ */
 public class Javen {
 
     private Ui ui;
@@ -18,6 +20,10 @@ public class Javen {
     private TaskList taskList;
     private Parser parser;
 
+
+    /**
+     * Overall program flow
+     */
     public Javen() {
 
         ui = new Ui();
@@ -29,11 +35,15 @@ public class Javen {
         }
 
         parser = new Parser();
-        ui.printGreeting();
+        System.out.println(ui.printGreeting());
     }
 
     public String getResponse(String input) {
         return parser.readInput(input, taskList, ui, storage); // Process input and return response
+    }
+
+    public String getGreeting() {
+        return ui.printGreeting();
     }
 
 }

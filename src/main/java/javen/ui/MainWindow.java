@@ -36,6 +36,9 @@ public class MainWindow extends AnchorPane {
     /** Injects the Javen instance */
     public void setDuke(Javen j) {
         javen = j;
+        dialogContainer.getChildren().add(
+                DialogBox.getDukeDialog(javen.getGreeting(), javenImage)
+        );
     }
 
     /**

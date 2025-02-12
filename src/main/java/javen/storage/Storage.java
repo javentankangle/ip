@@ -11,7 +11,9 @@ import javen.task.Task;
 import javen.tasklist.TaskList;
 
 
-
+/**
+ * Consist of storing and loading of user's list that is saved locally
+ */
 public class Storage {
     private String filePath;
 

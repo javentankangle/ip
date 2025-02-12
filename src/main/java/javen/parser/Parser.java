@@ -14,7 +14,9 @@ import javen.ui.Ui;
 
 
 
-
+/**
+ * Handles the parsing of various input
+ */
 public class Parser {
 
     /**
@@ -28,6 +30,11 @@ public class Parser {
      * @param storage javen.storage to save tasks
      */
     public String readInput(String input, TaskList taskList, Ui ui, Storage storage) {
+        assert input != null : "Input cannot be null";
+        assert taskList != null : "TaskList cannot be null";
+        assert ui != null : "Ui cannot be null";
+        assert storage != null : "Storage cannot be null";
+
         String[] parts = input.split(" ", 2);
         String command = parts[0];
         StringBuilder sb = new StringBuilder();
@@ -150,6 +157,7 @@ public class Parser {
      * @return index in array or null if index is outofbounds
      */
     protected int checkStringToInteger(String details, String[] parts, TaskList taskList) {
+
         int index;
 
         try {
@@ -176,6 +184,7 @@ public class Parser {
      * @return keyword or null if keyword not provided
      */
     private String checkStringToString(String details, String[] parts) {
+
         if (parts.length < 2) {
             return null;
         }
