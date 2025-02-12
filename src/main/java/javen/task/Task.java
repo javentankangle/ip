@@ -42,10 +42,6 @@ public class Task implements Serializable {
 
     @Override
     public String toString() {
-        if (this.isMark) {
-            return "[X] " + this.description;
-        } else {
-            return "[ ] " + this.description;
-        }
+        return (isMark ? "[X] " : "[ ] ") + description;
     }
 }

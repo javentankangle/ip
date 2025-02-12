@@ -19,6 +19,10 @@ import javen.ui.Ui;
  */
 public class Parser {
 
+    private static final int MIN_DATE_LENGTH = 13;
+    private static final int DATE_PART_LENGTH = 10;
+    private static final int HOUR_START_INDEX = 11;
+    private static final int HOUR_END_INDEX = 13;
     /**
      * Reads user input and runs function based one user input
      * User inputs can contain (todo, deadline, event, mark, unmark, bye, list and delete)
@@ -37,16 +41,10 @@ public class Parser {
 
         String[] parts = input.split(" ", 2);
         String command = parts[0];
-        StringBuilder sb = new StringBuilder();
-
-        String details = "";
-        if (parts.length > 1) {
-            details = parts[1];
-        }
-
+        StringBuilder errorBuilder = new StringBuilder();
+        String details = (parts.length > 1) ? parts[1] : "";
 
         switch (command) {
-
         case "todo":
             if (parts.length < 2) {
                 return ui.showMessage("""
@@ -55,11 +53,11 @@ public class Parser {
                         A todo needs to have a description!
                         ________________________________________
                         """);
-            } else {
-                ToDo toDo = new ToDo(details);
-                storage.saveTask(taskList);
-                return ui.showMessage(taskList.addTask(toDo));
             }
+            ToDo toDo = new ToDo(details);
+            String message = ui.showMessage(taskList.addTask(toDo));
+            storage.saveTask(taskList);
+            return message;
 
         case "deadline":
             String[] deadlineParts = details.split("/");
@@ -73,19 +71,18 @@ public class Parser {
                         E.g. (deadline return book /by Sunday)
                         ________________________________________
                         """);
-            } else {
-                String deadlineDescription = deadlineParts[0];
-                LocalDateTime deadlineEnd = parseDateTime(deadlineParts[1], sb);
-                if (deadlineEnd == null) {
-                    String result = sb.toString();
-                    sb.setLength(0);
-                    return ui.showMessage(result);
-                }
-                Deadline deadline = new Deadline(deadlineDescription, deadlineEnd);
-                storage.saveTask(taskList);
-                return ui.showMessage(taskList.addTask(deadline));
             }
-
+            String deadlineDescription = deadlineParts[0];
+            LocalDateTime deadlineEnd = parseDateTime(deadlineParts[1], errorBuilder);
+            if (deadlineEnd == null) {
+                String result = errorBuilder.toString();
+                errorBuilder.setLength(0);
+                return ui.showMessage(result);
+            }
+            Deadline deadline = new Deadline(deadlineDescription, deadlineEnd);
+            String deadlineMessage = ui.showMessage(taskList.addTask(deadline));
+            storage.saveTask(taskList);
+            return deadlineMessage;
 
         case "event":
             String[] eventParts = details.split("/");
@@ -98,27 +95,31 @@ public class Parser {
                         E.g. (event project meeting /from Mon 2pm /to 4pm)
                         ________________________________________
                         """);
-            } else {
-                String eventDescription = eventParts[0];
-                LocalDateTime eventStart = parseDateTime(eventParts[1], sb);
-                LocalDateTime eventEnd = parseDateTime(eventParts[2], sb);
-                if (eventStart == null || eventEnd == null) {
-                    String result = sb.toString();
-                    sb.setLength(0);
-                    return ui.showMessage(result);
-                }
-                Event event = new Event(eventDescription, eventStart, eventEnd);
-                storage.saveTask(taskList);
-                return ui.showMessage(taskList.addTask(event));
             }
+            String eventDescription = eventParts[0];
+            LocalDateTime eventStart = parseDateTime(eventParts[1], errorBuilder);
+            LocalDateTime eventEnd = parseDateTime(eventParts[2], errorBuilder);
+            if (eventStart == null || eventEnd == null) {
+                String result = errorBuilder.toString();
+                errorBuilder.setLength(0);
+                return ui.showMessage(result);
+            }
+            Event event = new Event(eventDescription, eventStart, eventEnd);
+            String eventMessage = ui.showMessage(taskList.addTask(event));
+            storage.saveTask(taskList);
+            return eventMessage;
+
 
         case "mark":
-            return ui.showMessage(taskList.markTask(checkStringToInteger(details, parts, taskList)));
+            String markMessage = ui.showMessage(taskList.markTask(checkStringToInteger(details, parts, taskList)));
+            storage.saveTask(taskList);
+            return markMessage;
 
 
         case "unmark":
-            return ui.showMessage(taskList.unmarkTask(checkStringToInteger(details, parts, taskList)));
-
+            String unmarkMessage = ui.showMessage(taskList.unmarkTask(checkStringToInteger(details, parts, taskList)));
+            storage.saveTask(taskList);
+            return unmarkMessage;
 
         case "bye":
             return ui.printGoodbye();
@@ -128,9 +129,9 @@ public class Parser {
 
 
         case "delete":
+            String deleteMessage = ui.showMessage(taskList.deleteTask(checkStringToInteger(details, parts, taskList)));
             storage.saveTask(taskList);
-            return ui.showMessage(taskList.deleteTask(checkStringToInteger(details, parts, taskList)));
-
+            return deleteMessage;
 
         case "find":
             return ui.showMessage(taskList.searchTask(checkStringToString(details, parts)));
@@ -185,11 +186,7 @@ public class Parser {
      */
     private String checkStringToString(String details, String[] parts) {
 
-        if (parts.length < 2) {
-            return null;
-        }
-
-        return details;
+        return (parts.length < 2) ? null : details;
     }
 
 
@@ -228,8 +225,10 @@ public class Parser {
         }
 
         try {
-            String formattedInput = stringDateTime.substring(0, 10) + "T" + stringDateTime.substring(11, 13)
-                    + ":" + stringDateTime.substring(13);
+            String datePart = stringDateTime.substring(0, DATE_PART_LENGTH);
+            String hourPart = stringDateTime.substring(HOUR_START_INDEX, HOUR_END_INDEX);
+            String minutePart = stringDateTime.substring(HOUR_END_INDEX);
+            String formattedInput = datePart + "T" + hourPart + ":" + minutePart;
             DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
             return LocalDateTime.parse(formattedInput, formatter);
         } catch (DateTimeParseException e) {

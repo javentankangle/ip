@@ -8,6 +8,7 @@ import javen.task.Task;
  * A tasklist that handles various tasks
  */
 public class TaskList {
+    private static final int INVALID_INDEX = -1;
     private ArrayList<Task> tasks;
 
 
@@ -16,10 +17,9 @@ public class TaskList {
     }
 
     /**
-     * Saves taskList to local hard drive
-     * If folder ".data" is not created, creates folder.
+     * Returns the list of tasks.
      *
-     * @return ArrayList of Task
+     * @return ArrayList of Task objects.
      */
     public ArrayList<Task> getTasks() {
         return this.tasks;
@@ -92,7 +92,7 @@ public class TaskList {
                 ________________________________________
                 """;
 
-        if (index == -1) {
+        if (index == INVALID_INDEX) {
             return error;
         }
 
@@ -101,11 +101,10 @@ public class TaskList {
         try {
             Task task = this.tasks.get(index);
             this.tasks.remove(task);
-            sb.append(
-            """
-            ________________________________________
-            Task is deleted!
-            """).append(task.toString()).append("\n________________________________________\n");
+            sb.append("________________________________________\n")
+                    .append("Task is deleted!\n")
+                    .append(task)
+                    .append("\n________________________________________\n");
 
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             sb.append(error);
@@ -133,7 +132,7 @@ public class TaskList {
                 ________________________________________
                 """;
 
-        if (index == -1) {
+        if (index == INVALID_INDEX) {
             return error;
         }
 
@@ -143,11 +142,10 @@ public class TaskList {
         try {
             Task task = tasks.get(index);
             task.markTask();
-            sb.append(
-                    """
-                    ________________________________________
-                    Task is marked!
-                    """).append(task.toString()).append("\n________________________________________\n");
+            sb.append("________________________________________\n")
+                    .append("Task is marked!\n")
+                    .append(task)
+                    .append("\n________________________________________\n");
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             sb.append(error);
         }
@@ -173,7 +171,7 @@ public class TaskList {
                 ________________________________________
                 """;
 
-        if (index == -1) {
+        if (index == INVALID_INDEX) {
             return error;
         }
 
@@ -183,11 +181,10 @@ public class TaskList {
         try {
             Task task = tasks.get(index);
             task.unmarkTask();
-            sb.append(
-                    """
-                    ________________________________________
-                    Task is unmarked!
-                    """).append(task.toString()).append("\n________________________________________\n");
+            sb.append("________________________________________\n")
+                    .append("Task is unmarked!\n")
+                    .append(task)
+                    .append("\n________________________________________\n");
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             sb.append(error);
         }
