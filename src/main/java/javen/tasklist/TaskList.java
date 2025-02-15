@@ -9,7 +9,7 @@ import javen.task.Task;
  */
 public class TaskList {
     private static final int INVALID_INDEX = -1;
-    private ArrayList<Task> tasks;
+    private final ArrayList<Task> tasks;
 
 
     public TaskList(ArrayList<Task> tasks) {
