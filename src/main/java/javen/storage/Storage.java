@@ -39,7 +39,7 @@ public class Storage {
             System.err.println("Error saving tasks: " + e.getMessage());
         }
 
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(".data/duke.txt"))) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(".data/javen.txt"))) {
             oos.writeObject(taskList.getTasks());
         } catch (IOException e) {
             System.err.println("Error saving tasks: " + e.getMessage());
