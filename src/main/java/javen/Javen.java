@@ -38,6 +38,12 @@ public class Javen {
         System.out.println(ui.printGreeting());
     }
 
+    /**
+     * Takes in user input
+     * @param input user input
+     *
+     * @return response based on user input
+     */
     public String getResponse(String input) {
         return parser.readInput(input, taskList, ui, storage); // Process input and return response
     }
