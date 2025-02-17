@@ -3,7 +3,7 @@
 ![Screenshot of Javen UI](./Ui.png)
 
 
-Javen is your friendly virtual task assistant, designed to help you stay organized and on top of your daily activities.
+Javen is your friendly virtual task assistant, designed to help you stay organized on top of your daily activities.
 With a simple set of commands, you can quickly add tasks, mark them as done, remove them, or find exactly what you need. 
 Javen is your go-to companion for task management, keeping you stress-free and productive!
 
@@ -24,7 +24,7 @@ ________________________________________
 ```
 
 ## Adding deadlines
-Create task with given deadline. Date should be formatted as such: yyyy-MM-dd HHmm
+Create task with given deadline. Datetime should be formatted as such: yyyy-MM-dd HHmm
 
 Format: deadline /DESCRIPTION /DEADLINE
 Example: deadline return book /by 2022-01-01 1800
