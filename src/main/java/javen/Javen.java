@@ -27,7 +27,7 @@ public class Javen {
     public Javen() {
 
         ui = new Ui();
-        storage = new Storage(".data/duke.txt");
+        storage = new Storage(".data/javen.txt");
         try {
             taskList = new TaskList(storage.loadTask());
         } catch (IOException | ClassNotFoundException e) {
