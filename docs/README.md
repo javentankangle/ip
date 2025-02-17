@@ -128,7 +128,7 @@ ________________________________________
 
 
 ## Exit Application
-Exit the application
+Prints greeting and exit the application
 
 Format: bye
 Output:
