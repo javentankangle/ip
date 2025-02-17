@@ -48,6 +48,11 @@ public class Javen {
         return parser.readInput(input, taskList, ui, storage); // Process input and return response
     }
 
+    /**
+     * Takes in user input
+     *
+     * @return greeting to user
+     */
     public String getGreeting() {
         return ui.printGreeting();
     }
