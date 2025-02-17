@@ -201,7 +201,6 @@ public class TaskList {
      * @return a message to user
      */
     public String searchTask(String keyword) {
-        assert tasks != null : "Tasks list should be initialized";
 
         if (keyword == null) {
             return ("""
@@ -228,6 +227,7 @@ public class TaskList {
         if (taskString.isEmpty()) {
             sb.append("No tasks were found under ").append(keyword).append("\n");
         } else {
+            sb.append("Task found!\n");
             for (String task : taskString) {
                 sb.append(task).append("\n");
             }
