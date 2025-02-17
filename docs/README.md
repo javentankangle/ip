@@ -1,11 +1,8 @@
 # Javen
 
-// Update the title above to match the actual product name
-
-// Product screenshot goes here
 ![Screenshot of Javen UI](./Ui.png)
 
-// Product intro goes here
+
 Javen is your friendly virtual task assistant, designed to help you stay organized and on top of your daily activities.
 With a simple set of commands, you can quickly add tasks, mark them as done, remove them, or find exactly what you need. 
 Javen is your go-to companion for task management, keeping you stress-free and productive!
@@ -114,19 +111,6 @@ Task is deleted!
 ________________________________________
 ```
 
-## Delete Tasks
-Remove task from task list
-
-Format: delete /TASK_ID
-Example: delete 1
-Output:
-
-```
-________________________________________
-Task is deleted!
-[T][X] borrow books
-________________________________________
-```
 
 ## Find Tasks
 Search for task given a keyword
