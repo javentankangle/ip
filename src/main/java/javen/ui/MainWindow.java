@@ -49,7 +49,7 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = javen.getResponse(input);
-        if (input.equalsIgnoreCase("bye")) {
+        if (input.startsWith("bye")) {
             Platform.exit();
         }
         dialogContainer.getChildren().addAll(
