@@ -11,7 +11,7 @@ Javen is your go-to companion for task management, keeping you stress-free and p
 Upon launching the application, you will be greeted by Javen!
 
 ## Adding ToDos: todo
-Create a task with a description
+Create a task with description
 Format: todo /DESCRIPTION
 Example: todo borrow books
 
